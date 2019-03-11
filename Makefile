@@ -5,6 +5,7 @@ WARN_COLOR=\033[33;01m
 
 D := docker
 REPO := docker-go
+AWS_REPO_NAME := REDACTED
 IMAGE_NAME := tylerzey/$(REPO)
 CONTAINER_NAME := cont-$(REPO)
 DIR := $(shell pwd)
@@ -21,3 +22,14 @@ run:
 kill: 
 		@echo "$(OK_COLOR)Killing container$(NO_COLOR)"
 		@$(D) kill --signal=SIGHUP $(CONTAINER_NAME)
+
+tag: 
+	@echo "$(OK_COLOR)Tagging the container$(NO_COLOR)"
+	@$(D) tag $(IMAGE_NAME) $(AWS_REPO_NAME)
+
+login: 
+	@echo "$(OK_COLOR) Logging in...$(NO_COLOR)"
+	@eval $(aws ecr get-login --no-include-email)
+
+push: 
+	@$(D) push $(AWS_REPO_NAME)
