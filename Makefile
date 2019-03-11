@@ -12,16 +12,16 @@ DIR := $(shell pwd)
 
 
 build: 
-		@echo "$(OK_COLOR)Creating Docker Image$(NO_COLOR)"
-		@$(D) build -t $(IMAGE_NAME) .
+	@echo "$(OK_COLOR)Creating Docker Image$(NO_COLOR)"
+	@$(D) build -t $(IMAGE_NAME) .
 
 run: 
-		@echo "$(OK_COLOR)Running Docker Image$(NO_COLOR)"
-		@$(D) run -d -it --rm -p 8090:80 --name $(CONTAINER_NAME) $(IMAGE_NAME)
+	@echo "$(OK_COLOR)Running Docker Image$(NO_COLOR)"
+	@$(D) run -d -it --rm -p 8090:80 --name $(CONTAINER_NAME) $(IMAGE_NAME)
 
 kill: 
-		@echo "$(OK_COLOR)Killing container$(NO_COLOR)"
-		@$(D) kill --signal=SIGHUP $(CONTAINER_NAME)
+	@echo "$(OK_COLOR)Killing container$(NO_COLOR)"
+	@$(D) kill --signal=SIGHUP $(CONTAINER_NAME)
 
 tag: 
 	@echo "$(OK_COLOR)Tagging the container$(NO_COLOR)"
