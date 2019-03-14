@@ -5,7 +5,7 @@ WARN_COLOR=\033[33;01m
 
 D := docker
 REPO := docker-go
-AWS_REPO_NAME := REDACTED
+AWS_REPO_NAME := 658305512175.dkr.ecr.us-east-1.amazonaws.com/docker-go
 IMAGE_NAME := tylerzey/$(REPO)
 CONTAINER_NAME := cont-$(REPO)
 DIR := $(shell pwd)
@@ -29,7 +29,10 @@ tag:
 
 login: 
 	@echo "$(OK_COLOR) Logging in...$(NO_COLOR)"
-	@eval $(aws ecr get-login --no-include-email)
+	@eval $(aws ecr get-login --no-include-email --region us-east-1 | sh)
 
 push: 
 	@$(D) push $(AWS_REPO_NAME)
+
+upgrade-aws:
+	@eval $(brew upgrade awscli)
